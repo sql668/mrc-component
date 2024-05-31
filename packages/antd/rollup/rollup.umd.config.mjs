@@ -6,7 +6,7 @@ const config = {
   ...basicConfig,
   output: [
     {
-      name: '@form-created/antd',
+      name: '@meng-rc/antd',
       file: 'dist/index.umd.js',
       format: 'umd',
       exports: 'named',

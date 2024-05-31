@@ -20,10 +20,10 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
     "paths": {
-      "@form-created/antd": ["../packages/antd/src/index.tsx"],
-      "@form-created/antd/*": ["../packages/antd/src/*"],
-      "@form-created/sketch-ruler":["../packages/sketch-ruler/src/index.tsx"],
-      "@form-created/sketch-ruler/*":["../packages/sketch-ruler/src/*"],
+      "@meng-rc/antd": ["../packages/antd/src/index.tsx"],
+      "@meng-rc/antd/*": ["../packages/antd/src/*"],
+      "@meng-rc/sketch-ruler":["../packages/sketch-ruler/src/index.tsx"],
+      "@meng-rc/sketch-ruler/*":["../packages/sketch-ruler/src/*"],
       "@c/*":["./src/components/*"]
     }
   },

@@ -1,6 +1,6 @@
 {
-  "name": "@form-created/sketch-ruler",
-  "version": "1.0.0",
+  "name": "@meng-rc/sketch-ruler",
+  "version": "0.0.1",
   "description": "",
   "main": "dist/index.es.js",
   "module": "dist/index.es.js",
