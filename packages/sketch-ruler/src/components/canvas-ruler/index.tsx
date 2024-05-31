@@ -109,7 +109,7 @@ export function CanvasRuler(props: CanvasRulerProps) {
     const getValueByOffset = (offset: number, startP: number, scaleP: number) => Math.round(startP + offset / scaleP)
     const offset = vertical ? e.nativeEvent.offsetY : e.nativeEvent.offsetX
     const value = getValueByOffset(offset, start!, scale!)
-    // onAddLine(value)
+    onAddLine(value)
   }
   const mouseEnterHandle = (e: MouseEvent) => {
     const getValueByOffset = (offset: number, startP: number, scaleP: number) => Math.round(startP + offset / scaleP)
