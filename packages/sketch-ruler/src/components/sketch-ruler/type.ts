@@ -9,7 +9,7 @@ export interface RulerWrapperProps {
   endNumX?: number,
   startNumY?: number,
   endNumY?: number,
-  palette: Object,
+  palette: Record<string,any>,
   // 是否是垂直方向
   vertical?: boolean
 
@@ -27,5 +27,6 @@ export interface RulerWrapperProps {
 
   selectLength: number
 
+  /** 是否显示参考线 */
   isShowReferLine:boolean
 }

@@ -1,4 +1,4 @@
-import type { SketchRulerProps } from "src/type";
+import type { SketchRulerProps} from "@type"
 import { RulerWrapper } from "./wrapper";
 import { useEffect, useMemo, useState } from "react";
 import { closeEye64, eye64 } from "./cornerImg64";

@@ -103,29 +103,27 @@ export function CanvasRuler(props: CanvasRulerProps) {
       drawRuler(canvasRatio)
   }, [width, height])
 
-  const clickHandle = (e: React.PointerEvent<HTMLAnchorElement>) => {
-    console.log(e);
-
+  const clickHandle = (e: React.MouseEvent<HTMLCanvasElement>) => {
     const getValueByOffset = (offset: number, startP: number, scaleP: number) => Math.round(startP + offset / scaleP)
     const offset = vertical ? e.nativeEvent.offsetY : e.nativeEvent.offsetX
     const value = getValueByOffset(offset, start!, scale!)
     onAddLine(value)
   }
-  const mouseEnterHandle = (e: MouseEvent) => {
+  const mouseEnterHandle = (e: React.MouseEvent) => {
     const getValueByOffset = (offset: number, startP: number, scaleP: number) => Math.round(startP + offset / scaleP)
-    const offset = vertical ? e.offsetY : e.offsetX
+    const offset = vertical ? e.nativeEvent.offsetY : e.nativeEvent.offsetX
     const value = getValueByOffset(offset, start!, scale!)
-   // updateValueNum(value)
-    // updateShowIndicator(true)
+    updateValueNum(value)
+    updateShowIndicator(true)
   }
   const mouseLeaveHandle = () => {
-    // updateShowIndicator(false)
+    updateShowIndicator(false)
   }
-  const mouseMoveHandle = (e: MouseEvent) => {
+  const mouseMoveHandle = (e: React.MouseEvent) => {
      const getValueByOffset = (offset: number, startP: number, scaleP: number) => Math.round(startP + offset / scaleP)
-    const offset = vertical ? e.offsetY : e.offsetX
+    const offset = vertical ? e.nativeEvent.offsetY : e.nativeEvent.offsetX
     const value = getValueByOffset(offset, start!, scale!)
-    // updateValueNum(value)
+    updateValueNum(value)
   }
-  return <canvas className="canvas-ruler" ref={canvasRef} onClick={clickHandle} onMouseEnter={mouseEnterHandle} onMouseLeave={ mouseLeaveHandle} onMouseMove={mouseMoveHandle}>CanvasRuler</canvas>
+  return <canvas className="canvas-ruler" ref={canvasRef} onClick={clickHandle} onMouseEnter={mouseEnterHandle} onMouseLeave={ mouseLeaveHandle} onMouseMove={mouseMoveHandle} />
 }
