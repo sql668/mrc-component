@@ -20,6 +20,7 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
     "paths": {
+      "@meng-rc/util": ["../packages/util/src/index.tsx"],
       "@meng-rc/antd": ["../packages/antd/src/index.tsx"],
       "@meng-rc/antd/*": ["../packages/antd/src/*"],
       "@meng-rc/sketch-ruler":["../packages/sketch-ruler/src/index.tsx"],

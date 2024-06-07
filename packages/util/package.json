@@ -1,6 +1,6 @@
 {
-  "name": "@meng-rc/antd",
-  "version": "1.0.0",
+  "name": "@meng-rc/util",
+  "version": "0.0.1",
   "description": "",
   "main": "dist/index.es.js",
   "module": "dist/index.es.js",

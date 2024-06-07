@@ -11,6 +11,7 @@ export default defineConfig({
   },
   resolve: {
     alias: {
+      '@meng-rc/util': path.resolve(__dirname, '../packages/util/src/index.tsx'),
       '@meng-rc/antd': path.resolve(__dirname, '../packages/antd/src/index.tsx'),
       '@meng-rc/sketch-ruler': path.resolve(__dirname, '../packages/sketch-ruler/src/index.tsx'),
       '@c': path.resolve(__dirname, './src/components'),
