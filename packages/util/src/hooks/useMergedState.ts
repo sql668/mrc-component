@@ -2,10 +2,7 @@ import useEvent from './useEvent';
 import { useLayoutUpdateEffect } from './useLayoutEffect';
 import useState from './useState';
 
-type Updater<T> = (
-  updater: T | ((origin: T) => T),
-  ignoreDestroy?: boolean,
-) => void;
+type Updater<T> = (updater: T | ((origin: T) => T), ignoreDestroy?: boolean) => void;
 
 /** We only think `undefined` is empty */
 function hasValue(value: any) {
@@ -32,9 +29,7 @@ export default function useMergedState<T, R = T>(
     if (hasValue(value)) {
       return value;
     } if (hasValue(defaultValue)) {
-      return typeof defaultValue === 'function'
-        ? (defaultValue as any)()
-        : defaultValue;
+      return typeof defaultValue === 'function' ? (defaultValue as any)() : defaultValue;
     }
       return typeof defaultStateValue === 'function'
         ? (defaultStateValue as any)()
@@ -46,7 +41,7 @@ export default function useMergedState<T, R = T>(
   const postMergedValue = postState ? postState(mergedValue) : mergedValue;
 
   // ====================== Change ======================
-  const onChangeFn = useEvent(onChange as any);
+  const onChangeFn = useEvent(onChange as Function);
 
   const [prevValue, setPrevValue] = useState<[T]>([mergedValue]);
 

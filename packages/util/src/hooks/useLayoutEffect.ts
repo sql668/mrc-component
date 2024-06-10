@@ -1,14 +1,12 @@
-
-import React, { useEffect } from 'react';
+import * as React from 'react';
 import canUseDom from '../dom/canUseDom';
+
 
 /**
  * Wrap `React.useLayoutEffect` which will not throw warning message in test env
  */
 const useInternalLayoutEffect =
-  process.env.NODE_ENV !== 'test' && canUseDom()
-    ? React.useLayoutEffect
-    : useEffect;
+  process.env.NODE_ENV !== 'test' && canUseDom() ? React.useLayoutEffect : React.useEffect;
 
 const useLayoutEffect = (
   callback: (mount: boolean) => void | VoidFunction,
@@ -27,11 +25,8 @@ const useLayoutEffect = (
   }, []);
 };
 
-export const useLayoutUpdateEffect: typeof React.useEffect = (
-  callback,
-  deps,
-) => {
-  useLayoutEffect(firstMount => {
+export const useLayoutUpdateEffect: typeof React.useEffect = (callback, deps) => {
+  useLayoutEffect((firstMount) => {
     if (!firstMount) {
       return callback();
     }

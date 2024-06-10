@@ -17,6 +17,7 @@ export function BaseLayout() {
           options={[
             { value: '/component/sketch', label: 'sketch 标尺' },
             { value: '/component/tree', label: 'tree 树' },
+            { value: '/component/tree-select', label: 'tree-select 树' },
           ]}
         />
       </div>

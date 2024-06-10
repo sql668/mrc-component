@@ -6,13 +6,13 @@ const config = {
   output: [
     {
       file: 'dist/index.es.js',
-      format: 'es'
-    }
+      format: 'es',
+    },
   ],
   plugins: [
     ...basicConfig.plugins,
     excludeDependenciesFromBundle(),
-  ]
+  ],
 }
 
 export default config

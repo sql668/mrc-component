@@ -3,6 +3,7 @@ import { Navigate, RouteObject, useRoutes } from "react-router-dom";
 import { BaseLayout } from "../layout";
 import { Home } from "../views/home";
 import { TreeDemo } from "../views/tree";
+import { TreeSelectDemo } from "../views/tree-select";
 
 
 export const rootRouter: RouteObject[] = [
@@ -27,6 +28,10 @@ export const rootRouter: RouteObject[] = [
         path: "tree",
         element: <TreeDemo />,
       },
+      {
+        path: "tree-select",
+        element:<TreeSelectDemo></TreeSelectDemo>
+      }
     ]
   },
 	// {

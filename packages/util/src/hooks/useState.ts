@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import * as React from 'react';
 
 type Updater<T> = T | ((prevValue: T) => T);
 
@@ -16,13 +16,11 @@ export type SetState<T> = (
  * We do not make this auto is to avoid real memory leak.
  * Developer should confirm it's safe to ignore themselves.
  */
-export default function useSafeState<T>(
-  defaultValue?: T | (() => T),
-): [T, SetState<T>] {
-  const destroyRef = useRef(false);
-  const [value, setValue] = useState(defaultValue);
+export default function useSafeState<T>(defaultValue?: T | (() => T)): [T, SetState<T>] {
+  const destroyRef = React.useRef(false);
+  const [value, setValue] = React.useState(defaultValue);
 
-  useEffect(() => {
+  React.useEffect(() => {
     destroyRef.current = false;
 
     return () => {

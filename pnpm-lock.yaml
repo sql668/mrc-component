@@ -11,6 +11,9 @@ importers:
       '@babel/eslint-plugin':
         specifier: ^7.24.5
         version: 7.24.6(@babel/eslint-parser@7.24.6(@babel/core@7.24.6)(eslint@8.57.0))(eslint@8.57.0)
+      '@ianvs/prettier-plugin-sort-imports':
+        specifier: ^4.2.1
+        version: 4.2.1(prettier@3.2.5)
       '@rollup/plugin-alias':
         specifier: ^5.1.0
         version: 5.1.0(rollup@2.79.1)
@@ -270,9 +273,24 @@ importers:
 
   packages/antd:
     dependencies:
+      '@ant-design/icons':
+        specifier: ^5.3.1
+        version: 5.3.7(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@meng-rc/util':
+        specifier: workspace:^
+        version: link:../util
       antd:
         specifier: ^5.0.0
         version: 5.18.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      classnames:
+        specifier: ^2.3.1
+        version: 2.5.1
+      rc-tree:
+        specifier: ^5.8.7
+        version: 5.8.7(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      rc-util:
+        specifier: ^5.41.0
+        version: 5.41.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
     devDependencies:
       '@rollup/plugin-commonjs':
         specifier: ^22.0.2
@@ -319,9 +337,6 @@ importers:
       babel-plugin-named-exports-order:
         specifier: ^0.0.2
         version: 0.0.2
-      classnames:
-        specifier: ^2.3.1
-        version: 2.5.1
       cross-env:
         specifier: ^7.0.3
         version: 7.0.3
@@ -1674,6 +1689,15 @@ packages:
 
   '@humanwhocodes/object-schema@2.0.3':
     resolution: {integrity: sha512-93zYdMES/c1D69yZiKDBj0V24vqNzB/koF26KPaagAfd3P/4gUlh3Dys5ogAK+Exi9QyzlD8x/08Zt7wIKcDcA==}
+
+  '@ianvs/prettier-plugin-sort-imports@4.2.1':
+    resolution: {integrity: sha512-NKN1LVFWUDGDGr3vt+6Ey3qPeN/163uR1pOPAlkWpgvAqgxQ6kSdUf1F0it8aHUtKRUzEGcK38Wxd07O61d7+Q==}
+    peerDependencies:
+      '@vue/compiler-sfc': 2.7.x || 3.x
+      prettier: 2 || 3
+    peerDependenciesMeta:
+      '@vue/compiler-sfc':
+        optional: true
 
   '@isaacs/cliui@8.0.2':
     resolution: {integrity: sha512-O8jcjabXaleOG9DQ0+ARXWZBTfnP4WNAqzuiJK7ll44AmxGKv/J2M4TPjxjY3znBCfvBXFzucm1twdyFybFqEA==}
@@ -10279,6 +10303,18 @@ snapshots:
   '@humanwhocodes/module-importer@1.0.1': {}
 
   '@humanwhocodes/object-schema@2.0.3': {}
+
+  '@ianvs/prettier-plugin-sort-imports@4.2.1(prettier@3.2.5)':
+    dependencies:
+      '@babel/core': 7.24.6
+      '@babel/generator': 7.24.6
+      '@babel/parser': 7.24.6
+      '@babel/traverse': 7.24.6
+      '@babel/types': 7.24.6
+      prettier: 3.2.5
+      semver: 7.6.2
+    transitivePeerDependencies:
+      - supports-color
 
   '@isaacs/cliui@8.0.2':
     dependencies:
