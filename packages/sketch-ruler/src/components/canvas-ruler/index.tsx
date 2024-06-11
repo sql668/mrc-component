@@ -23,8 +23,6 @@ export interface CanvasRulerProps {
 }
 
 export function CanvasRuler(props: CanvasRulerProps) {
-  console.log("CanvasRuler props: ",props);
-
   const { showIndicator, valueNum, scale, ratio:ratioProp, palette, vertical, start, width, height, selectStart, selectLength, startNumX, endNumX, startNumY, endNumY,onAddLine, updateValueNum, updateShowIndicator } = props
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const [canvasContext, setCanvasContext] = useState<CanvasRenderingContext2D | null>(null)
@@ -86,7 +84,6 @@ export function CanvasRuler(props: CanvasRulerProps) {
 
   useEffect(() => {
     const _ratio = ratioProp || window.devicePixelRatio || 1
-    console.log(_ratio);
     setCanvasRatio(_ratio)
     initCanvasRef()
     updateCanvasContext(_ratio)

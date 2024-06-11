@@ -1,12 +1,14 @@
 {
   "name": "mrc-component",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "",
   "main": "index.js",
   "scripts": {
+    "preinstall": "npx only-allow pnpm",
     "dev": "pnpm -C example dev",
     "build": "pnpm -C packages/sketch-ruler build",
-    "lint:script": "eslint . --ext .js,.jsx,.ts,.tsx --cache"
+    "lint:script": "eslint . --ext .js,.jsx,.ts,.tsx --cache",
+    "p-antd": "pnpm --filter \"@meng-rc/antd\" publish  --no-git-checks"
   },
   "keywords": [],
   "author": "",

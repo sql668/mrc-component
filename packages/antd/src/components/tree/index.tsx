@@ -1,15 +1,13 @@
 import type { Key } from 'react';
 import { forwardRef, useCallback, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react';
-import { useMergedState } from '@meng-rc/util';
+import { useLayoutUpdateEffect, useMergedState } from '@meng-rc/util';
 import type { TreeProps as ATreeProps } from 'antd';
 import { Tree as ATree, Empty } from 'antd';
 import type { EventDataNode } from 'antd/es/tree';
 
 
 
-import { conductCheck } from './handleKeys';
-// import useMergedState from 'rc-util/lib/hooks/useMergedState';
-
+import { conductCheck, getExpandKeysFromCheck } from './handleKeys';
 import type { DataEntity, KeyTitleType, MrcTreeCheckEventInfo, MrcTreeOnChangeEventInfo, SafeKey, SelectedKeysType, TreeCheckEventInfo, TreeSelectEventInfo } from './type';
 import useCheckedKeys from './useCheckedKeys';
 import useDataEntities from './useDataEntities';
@@ -61,7 +59,7 @@ const Tree = forwardRef((props: TreeProps, ref) => {
     autoExpand,
     expandedKeys: treeExpandedKeys,
     onExpand: onTreeExpand,
-    defaultSelectedKeys: treeDefaultSelectedKeys, 
+    defaultSelectedKeys: treeDefaultSelectedKeys,
     selectedKeys: treeSelextedKeys,
     onSelect,
     ...restProps
@@ -85,7 +83,7 @@ const Tree = forwardRef((props: TreeProps, ref) => {
     /* eslint-enable react-hooks/exhaustive-deps */
   );
 
-   /** 格式化selectedKeys 统一转换成(SafeKey | KeyTitleType)[] */
+  /** 格式化selectedKeys 统一转换成(SafeKey | KeyTitleType)[] */
   const toComplexKeyMode = useCallback((draftValues: SelectedKeysType) => {
     const values = toArray(draftValues);
     return values.map((val) => {
@@ -104,11 +102,13 @@ const Tree = forwardRef((props: TreeProps, ref) => {
   });
 
   const { keyEntities } = useDataEntities(filterTreeData, mergedFieldNames);
-  
 
   // 合并selectedKeys,selectedKeys优先级高于defaultSelectedKeys
-  const [internalSelectedKeys, setInternalSelectedKeys] = useMergedState(treeDefaultSelectedKeys, { defaultValue: treeSelextedKeys });
-  
+  const [internalSelectedKeys, setInternalSelectedKeys] = useMergedState(
+    treeDefaultSelectedKeys || [],
+    { defaultValue: treeSelextedKeys },
+  );
+
   const rawMixedKeys = useMemo(
     () => toComplexKeyMode(internalSelectedKeys as any),
     [toComplexKeyMode, internalSelectedKeys],
@@ -127,20 +127,20 @@ const Tree = forwardRef((props: TreeProps, ref) => {
     });
     return [fullCheckValues, halfCheckValues];
   }, [rawMixedKeys]);
-  console.log("rawLabeledValues: ",rawLabeledValues);
-  
 
-  const [rawCheckedKeys, rawHalfCheckedKeys,rawExpandKeys] = useCheckedKeys(
+  const [rawCheckedKeys, rawHalfCheckedKeys, rawExpandKeys] = useCheckedKeys(
     rawLabeledValues,
     rawHalfLabeledValues,
     treeConduction ?? false,
     keyEntities,
   );
 
+  const rawKeys = useMemo(() => rawLabeledValues.map((item) => item.key), [rawLabeledValues]);
+
   const splitRawKeys = useCallback(
-    (newRawValues: RawValueType[]) => {
-      const missingRawKeys: RawValueType[] = [];
-      const existRawKeys: RawValueType[] = [];
+    (newRawValues: SafeKey[]) => {
+      const missingRawKeys: SafeKey[] = [];
+      const existRawKeys: SafeKey[] = [];
       newRawValues.forEach((val) => {
         if (keyEntities[val]) {
           existRawKeys.push(val);
@@ -154,39 +154,40 @@ const Tree = forwardRef((props: TreeProps, ref) => {
     [keyEntities],
   );
 
-  
-
   // ======================= expand  =======================
   //const [expandedKeys, setExpandedKeys] = useState<Key[] | undefined>(treeDefaultExpandedKeys);
   const [expandedKeys, setExpandedKeys] = useState<Key[] | undefined>(treeExpandedKeys);
+  useLayoutUpdateEffect(() => {
+    let checkedKeys: SafeKey[] = rawLabeledValues.map(({ key }) => key);
+    let sk = getExpandKeysFromCheck(checkedKeys, keyEntities);
+    setExpandedKeys(sk);
+  }, [treeData]);
   const [searchExpandedKeys, setSearchExpandedKeys] = useState<Key[]>();
 
   // 一键展开/收缩所有
-  useEffect(() => { 
-    if (keyEntities && expandAll !== undefined) {   
-      setExpandedKeys(expandAll ? Object.keys(keyEntities).map(key => key) : [])
+  useEffect(() => {
+    if (keyEntities && expandAll !== undefined) {
+      setExpandedKeys(expandAll ? Object.keys(keyEntities).map((key) => key) : []);
     }
-  }, [expandAll, keyEntities])
+  }, [expandAll, keyEntities]);
 
   const mergedExpandedKeys = useMemo(() => {
-     debugger
-    let keys = undefined
-    if (searchValue) { 
-      keys = searchExpandedKeys
+    let keys = undefined;
+    if (searchValue) {
+      keys = searchExpandedKeys;
     } else {
-      keys = expandedKeys
-     }
-     return keys
+      keys = expandedKeys;
+    }
+    return keys;
   }, [expandedKeys, searchExpandedKeys, searchValue]);
   // 根据selectedkeys自动展开相应的层级节点
   useEffect(() => {
-    debugger
     const sk = treeSelextedKeys || treeDefaultSelectedKeys;
     if (autoExpand && sk) {
       // 从初始化给的selectedkey自动
     }
-  }, [autoExpand, treeDefaultSelectedKeys,treeSelextedKeys])
-  
+  }, [autoExpand, treeDefaultSelectedKeys, treeSelextedKeys]);
+
   useEffect(() => {
     if (searchValue) {
       setSearchExpandedKeys(getAllKeys(treeData, mergedFieldNames));
@@ -218,13 +219,11 @@ const Tree = forwardRef((props: TreeProps, ref) => {
   //   if (searchValue) {
   //     return searchExpandedKeys
   //   } else {
-      
+
   //   }
   // }, [expandedKeys, searchExpandedKeys, searchValue]);
 
-
-
-   const lowerSearchValue = String(searchValue).toLowerCase();
+  const lowerSearchValue = String(searchValue).toLowerCase();
   const antdFilterTreeNode = (treeNode: EventDataNode<any>) => {
     if (!lowerSearchValue) {
       return false;
@@ -232,8 +231,6 @@ const Tree = forwardRef((props: TreeProps, ref) => {
     return String(treeNode[treeNodeFilterProp]).toLowerCase().includes(lowerSearchValue);
   };
 
-
-  
   // ======================= check or select  =======================
   const mergedCheckedKeys: any = useMemo(() => {
     if (!mergedCheckable) {
@@ -245,10 +242,6 @@ const Tree = forwardRef((props: TreeProps, ref) => {
     };
   }, [mergedCheckable, rawCheckedKeys, rawHalfCheckedKeys]);
 
-  
-
- 
-
   const treeProps: Partial<ATreeProps> = {
     fieldNames: mergedFieldNames,
   };
@@ -256,64 +249,8 @@ const Tree = forwardRef((props: TreeProps, ref) => {
     treeProps.expandedKeys = mergedExpandedKeys;
   }
 
-  // node select
-  const onTreeNodeSelect = useCallback(
-    (selectedKey: string | number, { selected }: { selected: boolean }) => {
-      console.log('onTreeNodeSelect', selectedKey, selected);
-
-      const entity = keyEntities[selectedKey];
-      const node: any = entity?.node;
-      // const selectedKey = node?.[mergedFieldNames.key] ?? selectedKey;
-      if (!mergedMultiple) {
-        // 单选模式
-        // Single mode always set value
-        triggerChange([selectedKey], { selected: true, triggerValue: selectedKey }, 'option');
-      } else {
-        // 多选模式下需要再细分 父子节点是否关联的情况
-
-        let newRawValues = selected
-          ? [...internalCheckedKeys, selectedKey]
-          : rawCheckedKeys.filter((v) => v !== selectedKey);
-
-        if (treeConduction) {
-          // 父子节点关联
-          // Should keep missing values
-          const { missingRawKeys, existRawKeys } = splitRawKeys(newRawValues);
-          const keyList = existRawKeys.map((val) => keyEntities[val].key);
-
-          let checkedKeys: React.Key[];
-          let half: React.Key[];
-          if (selected) {
-            ({ checkedKeys, halfCheckedKeys: half } = conductCheck(keyList, true, keyEntities));
-          } else {
-            ({ checkedKeys, halfCheckedKeys: half } = conductCheck(
-              keyList,
-              { checked: false, halfCheckedKeys: rawHalfCheckedKeys },
-              keyEntities,
-            ));
-          }
-          newRawValues = [
-            ...missingRawKeys,
-            ...checkedKeys.map((key) => keyEntities[key].node[mergedFieldNames.key]),
-          ];
-          console.log(half);
-          console.log(checkedKeys);
-          console.log(missingRawKeys);
-        }
-        console.log('newRawValues', newRawValues);
-        setInternalCheckedKeys(newRawValues);
-        if (onTreeCheck) {
-          onTreeCheck({ checkedKeys: newRawValues }, null);
-        }
-      }
-    },
-    [mergedCheckedKeys, rawCheckedKeys, splitRawKeys],
-  );
-
   const getTreeNodeByKeys = useCallback(
-    (keys: React.Key[]) => {
-      console.log(keyEntities);
-
+    (keys: SafeKey[]) => {
       const result: DataEntity[] = [];
       keys.forEach((key) => {
         if (keyEntities[key]) {
@@ -326,8 +263,6 @@ const Tree = forwardRef((props: TreeProps, ref) => {
   );
 
   useEffect(() => {
-    console.log('==================');
-    console.log(rawCheckedKeys, rawHalfCheckedKeys, eventInfo.current);
     if (eventInfo.current && onSelect) {
       onSelect(
         { checkedKeys: rawCheckedKeys, halfCheckedKeys: rawHalfCheckedKeys },
@@ -344,7 +279,7 @@ const Tree = forwardRef((props: TreeProps, ref) => {
   const getKeys = (keys: (SafeKey | KeyTitleType)[]) => {
     const result: React.Key[] = [];
     keys.forEach((item) => {
-      if (isRawValue(item)) {
+      if (isSimpleKeyMode(item)) {
         result.push(item);
       } else {
         result.push(item.key);
@@ -364,7 +299,7 @@ const Tree = forwardRef((props: TreeProps, ref) => {
   const onTreeNodeChangeEvent = useCallback(
     (selectedKey: string | number, info: MrcTreeOnChangeEventInfo) => {
       let newRawValues = info.selected
-        ? [...internalSelectedKeys, selectedKey]
+        ? [...rawKeys, selectedKey]
         : rawCheckedKeys.filter((v) => v !== selectedKey);
 
       if (!mergedMultiple) {
@@ -400,9 +335,8 @@ const Tree = forwardRef((props: TreeProps, ref) => {
   // tree node check
   const onTreeNodeCheckEvent = useCallback(
     (checkedKey: string | number, info: MrcTreeOnChangeEventInfo) => {
-      debugger
       let newRawValues = info.selected
-        ? [...internalSelectedKeys, checkedKey]
+        ? [...rawKeys, checkedKey]
         : rawCheckedKeys.filter((v) => v !== checkedKey);
 
       let checkedKeys: SafeKey[] = [];
@@ -436,11 +370,10 @@ const Tree = forwardRef((props: TreeProps, ref) => {
         eventInfo.current = info;
       }
     },
-    [internalSelectedKeys,keyEntities],
+    [internalSelectedKeys, keyEntities],
   );
 
   const onInternalCheck = (_: any, info: TreeCheckEventInfo): void => {
-    debugger
     const { node } = info;
     // eslint-disable-next-line no-useless-return
     if (mergedCheckable && isCheckDisabled(node)) return;
@@ -457,13 +390,12 @@ const Tree = forwardRef((props: TreeProps, ref) => {
     // eslint-disable-next-line no-useless-return
     if (mergedCheckable && isCheckDisabled(node)) return;
     onTreeNodeChangeEvent(node.key, {
-      event: "select",
+      event: 'select',
       node: info.node,
       selected: !rawCheckedKeys.includes(node.key),
       nativeEvent: info.nativeEvent,
     });
   };
-
 
   useImperativeHandle(ref, () => ({
     getCheckedKeys: () => getKeys(rawCheckedKeys),
@@ -484,9 +416,9 @@ const Tree = forwardRef((props: TreeProps, ref) => {
       multiple={mergedMultiple}
       checkStrictly
       checkedKeys={mergedCheckedKeys}
-      onCheck={onInternalCheck}
+      onCheck={onInternalCheck as any}
       selectedKeys={!mergedCheckable ? rawCheckedKeys : []}
-      onSelect={onInternalSelect}
+      onSelect={onInternalSelect as any}
       {...restProps}
       {...treeProps}
     />
@@ -496,6 +428,6 @@ const Tree = forwardRef((props: TreeProps, ref) => {
 Tree.displayName = 'Tree';
 
 if (process.env.NODE_ENV !== 'production') {
-  Tree.whyDidYouRender = true;
+  (Tree as any).whyDidYouRender = true;
 }
 export { Tree };

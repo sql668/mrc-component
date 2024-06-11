@@ -2,6 +2,7 @@ import useEvent from './useEvent';
 import { useLayoutUpdateEffect } from './useLayoutEffect';
 import useState from './useState';
 
+
 type Updater<T> = (updater: T | ((origin: T) => T), ignoreDestroy?: boolean) => void;
 
 /** We only think `undefined` is empty */
@@ -14,12 +15,12 @@ function hasValue(value: any) {
  * Note that internal use rc-util `useState` hook.
  */
 export default function useMergedState<T, R = T>(
-  defaultStateValue: T | (() => T),
+  defaultStateValue: T | (() => T), // state默认值
   option?: {
-    defaultValue?: T | (() => T);
-    value?: T;
-    onChange?: (value: T, prevValue: T) => void;
-    postState?: (value: T) => T;
+    defaultValue?: T | (() => T); // 非受控模式
+    value?: T; // 受控模式
+    onChange?: (value: T, prevValue: T) => void; // 在innerValue变化时的通知函数，
+    postState?: (value: T) => T; // 类似格式化的功能
   },
 ): [R, Updater<T>] {
   const { defaultValue, value, onChange, postState } = option || {};
@@ -28,13 +29,13 @@ export default function useMergedState<T, R = T>(
   const [innerValue, setInnerValue] = useState<T>(() => {
     if (hasValue(value)) {
       return value;
-    } if (hasValue(defaultValue)) {
+    }
+    if (hasValue(defaultValue)) {
       return typeof defaultValue === 'function' ? (defaultValue as any)() : defaultValue;
     }
-      return typeof defaultStateValue === 'function'
-        ? (defaultStateValue as any)()
-        : defaultStateValue;
-
+    return typeof defaultStateValue === 'function'
+      ? (defaultStateValue as any)()
+      : defaultStateValue;
   });
 
   const mergedValue = value !== undefined ? value : innerValue;

@@ -7,8 +7,6 @@ import { SketchLine } from "./line";
 
 
 export function RulerWrapper(props: RulerWrapperProps) {
-  console.log("RulerWrapper props: ", props);
-
   const { vertical = false,width = 200,height = 200,start = 0,lines = [],scale,ratio,thick,startNumX,startNumY,endNumX,endNumY,palette,selectLength,selectStart,isShowReferLine} = props
   const [valueNum, setValueNum] = useState(0)
   const [sketchLines, setSketchLines] = useState(lines)
@@ -28,7 +26,6 @@ export function RulerWrapper(props: RulerWrapperProps) {
    }, [vertical, thick])
 
   const indicatorStyle = useMemo(() => {
-     debugger
       const indicatorOffset = (valueNum - start) * scale!
       // let positionKey = 'top'
       // let boderKey = 'borderLeft'

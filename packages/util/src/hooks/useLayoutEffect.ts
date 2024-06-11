@@ -1,4 +1,7 @@
 import * as React from 'react';
+
+
+
 import canUseDom from '../dom/canUseDom';
 
 
@@ -25,6 +28,7 @@ const useLayoutEffect = (
   }, []);
 };
 
+/** 内部利用 ref 结合 useLayoutEffect 做到了仅在依赖值更新时调用 callback 首次渲染并不执行。 */
 export const useLayoutUpdateEffect: typeof React.useEffect = (callback, deps) => {
   useLayoutEffect((firstMount) => {
     if (!firstMount) {

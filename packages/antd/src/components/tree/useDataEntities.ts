@@ -1,5 +1,4 @@
 
-//import { convertDataToEntities } from 'rc-tree/lib/utils/treeUtil';
 import type {  fieldNamesProp } from './type';
 import { useMemo } from 'react';
 import { convertDataToEntities } from './util';

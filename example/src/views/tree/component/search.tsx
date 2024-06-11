@@ -30,9 +30,13 @@ function SearchTreeDemo() {
 
   ]);
   useEffect(() => {
-    setTimeout(() => {
-      setTreeData(TreeDemoData)
-    }, 1000);
+    setTreeData(TreeDemoData);
+    // setTimeout(() => {
+    //   setTreeData(TreeDemoData)
+    // }, 1000);
+    // setTimeout(() => {
+    //   setTreeData([]);
+    // }, 6000);
   }, [])
 
   const [searchValue, setSearchValue] = useState("")
@@ -66,11 +70,11 @@ function SearchTreeDemo() {
 
         }} fieldNames={{ title: "menuName", key: "menuId" }} key="menuId" searchValue={searchValue} filterTreeNode={true} treeNodeFilterProp="menuName"></Tree>
       </Col>
-      <Col span={12}>
+      {/* <Col span={12}>
         {
           treeData?.length > 0 && <ATree treeData={treeData} onCheck={checkHandle} fieldNames={{ title: "menuName", key: "menuId" }} key="menuId" defaultExpandAll></ATree>
         }
-      </Col>
+      </Col> */}
     </Row>
 
   </Card>

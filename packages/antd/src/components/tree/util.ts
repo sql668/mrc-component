@@ -1,3 +1,4 @@
+;
 //import type { Key } from 'react';
 import { warning } from '@meng-rc/util';
 import type { TreeProps as ATreeProps } from 'antd';
@@ -35,7 +36,7 @@ export function fillLegacyProps(dataNode: DataNode): any {
       get() {
         warning(
           false,
-          'New `rc-tree-select` not support return node instance as argument anymore. Please consider to remove `props` access.',
+          'New `@meng-rc/antd tree` not support return node instance as argument anymore. Please consider to remove `props` access.',
         );
         return cloneNode;
       },
@@ -142,10 +143,7 @@ export function getPosition(level: string | number, index: number) {
   return `${level}-${index}`;
 }
 
-/**
- * Traverse all the data by `treeData`.
- * Please not use it out of the `rc-tree` since we may refactor this code.
- */
+
 export function traverseDataNodes(
   dataNodes: DataNode[],
   callback: (data: {

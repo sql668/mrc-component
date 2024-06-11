@@ -33,7 +33,6 @@ export interface BasicDataNode {
 
 export interface FieldNames {
   title?: string;
-  /** @private Internal usage for `rc-tree-select`, safe to remove if no need */
   _title?: string[];
   key?: string;
   children?: string;
@@ -131,7 +130,7 @@ export interface TreeCheckEventInfo<TreeDataType extends BasicDataNode = DataNod
   nativeEvent: MouseEvent;
   checkedNodes: TreeDataType[];
   checkedNodesPositions?: { node: TreeDataType; pos: string }[];
-  halfCheckedKeys?: Key[];
+  halfCheckedKeys?: SafeKey[];
 }
 
 export interface TreeSelectEventInfo<TreeDataType extends BasicDataNode = DataNode> {
