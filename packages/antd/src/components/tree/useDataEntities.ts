@@ -1,7 +1,8 @@
 
-import { convertDataToEntities } from 'rc-tree/lib/utils/treeUtil';
+//import { convertDataToEntities } from 'rc-tree/lib/utils/treeUtil';
 import type {  fieldNamesProp } from './type';
 import { useMemo } from 'react';
+import { convertDataToEntities } from './util';
 
 /**
  * 将treeData转换成keyEntities

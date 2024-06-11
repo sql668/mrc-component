@@ -1,5 +1,4 @@
 import type { TreeProps as ATreeProps, TreeNodeProps } from 'antd';
-import type { BasicDataNode, DataNode, EventDataNode } from 'antd/es/tree';
 
 
 
@@ -8,6 +7,63 @@ import type { BasicDataNode, DataNode, EventDataNode } from 'antd/es/tree';
 export type TreeDataProp = ATreeProps['treeData']
 export type fieldNamesProp = ATreeProps['fieldNames'];
 
+export type Key = React.Key;
+export type SafeKey = Exclude<Key, bigint>;
+
+export type GetKey<RecordType> = (record: RecordType, index?: number) => SafeKey;
+
+export type GetCheckDisabled<RecordType> = (record: RecordType) => boolean;
+
+export type IconType = React.ReactNode | ((props: TreeNodeProps) => React.ReactNode);
+
+/** For fieldNames, we provides a abstract interface */
+export interface BasicDataNode {
+  checkable?: boolean;
+  disabled?: boolean;
+  disableCheckbox?: boolean;
+  icon?: IconType;
+  isLeaf?: boolean;
+  selectable?: boolean;
+  switcherIcon?: IconType;
+
+  /** Set style of TreeNode. This is not recommend if you don't have any force requirement */
+  className?: string;
+  style?: React.CSSProperties;
+}
+
+export interface FieldNames {
+  title?: string;
+  /** @private Internal usage for `rc-tree-select`, safe to remove if no need */
+  _title?: string[];
+  key?: string;
+  children?: string;
+}
+
+export type FieldDataNode<T, ChildFieldName extends string = 'children'> = BasicDataNode &
+  T &
+  Partial<Record<ChildFieldName, FieldDataNode<T, ChildFieldName>[]>>;
+
+export type DataNode = FieldDataNode<{
+  key: SafeKey;
+  title?: React.ReactNode | ((data: DataNode) => React.ReactNode);
+}>;
+
+
+export type EventDataNode<TreeDataType> = {
+  key: Key;
+  expanded: boolean;
+  selected: boolean;
+  checked: boolean;
+  loaded: boolean;
+  loading: boolean;
+  halfChecked: boolean;
+  dragOver: boolean;
+  dragOverGapTop: boolean;
+  dragOverGapBottom: boolean;
+  pos: string;
+  active: boolean;
+} & TreeDataType &
+  BasicDataNode;
 
 
 export type NodeElement = React.ReactElement<TreeNodeProps> & {
@@ -20,7 +76,7 @@ export type NodeElement = React.ReactElement<TreeNodeProps> & {
 export interface Entity {
   node: NodeElement;
   index: number;
-  key: Key;
+  key: SafeKey;
   pos: string;
   parent?: Entity;
   children?: Entity[];
@@ -35,7 +91,7 @@ export interface DataEntity<TreeDataType extends BasicDataNode = DataNode>
   level: number;
 }
 
-export type SafeKey = Exclude<Key, bigint>;
+
 export type KeyEntities<DateType extends BasicDataNode = any> = Record<
   SafeKey,
   DataEntity<DateType>
@@ -47,22 +103,23 @@ export type MergeFieldNamesProp = {
   children: string
 }
 
-export interface LabeledValueType {
-  key?: React.Key;
+export interface KeyTitleType {
+  key: SafeKey;
   title?: React.ReactNode;
   /** Only works on `checkStrictly` */
   halfChecked?: boolean;
 }
 
-export type Key = string | number;
-export type RawValueType = string | number;
+//export type RawValueType = string | number;
 
-export type SelectSource = 'option' | 'selection' | 'input' | 'clear';
+//export type SelectSource = 'option' | 'selection' | 'input' | 'clear';
 
-export type DraftValueType = RawValueType | LabeledValueType | (RawValueType | LabeledValueType)[];
+export type SelectedKeysType = SafeKey | KeyTitleType | (SafeKey | KeyTitleType)[];
+
+//export type SelectedKeysType = (SafeKey | KeyTitleType)[]
 
 export interface TreeEventInfo {
-  node: { key: Key };
+  node: { key: SafeKey };
   selected?: boolean;
   checked?: boolean;
 }
@@ -112,5 +169,3 @@ export interface MrcTreeOnChangeEventInfo<TreeDataType extends BasicDataNode = D
   checkedNodes?: DataEntity[];
   halfCheckedNodes?: DataEntity[];
 }
-
-export type GetCheckDisabled<RecordType> = (record: RecordType) => boolean;
