@@ -1,7 +1,6 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import style from './index.module.scss';
-import { SketchRuler } from '@form-created/sketch-ruler'
-console.log(style);
+import { SketchRuler } from '@meng-rc/sketch-ruler'
 
 const rectWidth = 600
 const rectHeight = 320
@@ -15,7 +14,7 @@ const shadow = {
 
 export function UserRuler() {
 
-  const [state, setState] = useState({
+  const [store, setStore] = useState({
      scale: 0.75, //658813476562495, //1,
       startX: 0,
       startY: 0,
@@ -32,9 +31,9 @@ export function UserRuler() {
   }
   const showLineClick = () => {
     //setShowLine(!showLine)
-    setState({
-      ...state,
-      isShowReferLine: !state.isShowReferLine
+    setStore({
+      ...store,
+      isShowReferLine: !store.isShowReferLine
     })
   }
   // const [scale, setScale] = useState(0.75)
@@ -48,9 +47,9 @@ export function UserRuler() {
   return {
     width: rectWidth,
     height: rectHeight,
-    transform: `scale(${state.scale})`
+    transform: `scale(${store.scale})`
   }
-  }, [state.scale])
+  }, [store.scale])
 
   useEffect(() => {
     console.log(screensRef.current);
@@ -58,7 +57,11 @@ export function UserRuler() {
     const container: HTMLDivElement = containerRef.current!
     // 滚动居中
     screens.scrollLeft = container.getBoundingClientRect().width / 2
+
+
   }, [])
+
+
 
 
 
@@ -69,40 +72,56 @@ export function UserRuler() {
     const canvasRect = canvas.getBoundingClientRect()
 
     // 标尺开始的刻度
-    const startX = (screensRect.left + state.thick - canvasRect.left) / state.scale
-    const startY = (screensRect.top + state.thick - canvasRect.top) / state.scale
+    const startX = (screensRect.left + store.thick - canvasRect.left) / store.scale
+    const startY = (screensRect.top + store.thick - canvasRect.top) / store.scale
     //state.startX = startX
     //state.startY = startY
-    setState({
-      ...state,
+    setStore({
+      ...store,
       startX: startX,
       startY: startY
     })
   }
 
-  useEffect(handleScroll,[state.scale])
+  useEffect(() => {
+    handleScroll()
+  },[store.scale])
 
-  const wheelHandle = (e: React.WheelEvent<HTMLDivElement>) => {
+  const wheelHandle = useCallback((e: WheelEvent) => {
     if (e.ctrlKey || e.metaKey) {
-      e.preventDefault()
-      const nextScale = parseFloat(Math.max(0.2, state.scale - e.deltaY / 500).toFixed(2))
+      e.preventDefault()  //touchstart、touchmove、wheel 调用preventDefault不生效
+      console.log(store.scale,e.deltaY);
+
+      const nextScale = parseFloat(Math.max(0.2, store.scale - e.deltaY / 500).toFixed(2))
+      console.log(nextScale);
+
       //setScale(nextScale)
-      setState({
-        ...state,
+      setStore({
+        ...store,
         scale: nextScale
       })
+      return false
     }
-  }
-  const scrollHandle = () => {
+  }, [store])
 
-  }
+  useEffect(() => {
+    const screens: HTMLDivElement = screensRef.current!
+    screens?.addEventListener("wheel", wheelHandle);
+    return () => {
+      screens?.removeEventListener("wheel", wheelHandle);
+    };
+   },[store.scale])
+
   return (
     <>
-      <div className={style.top}>缩放比例:{ state.scale  }</div>
+      <div className={style.top}>缩放比例:{ store.scale  }</div>
       <button className={ style.right} onClick={showLineClick}>辅助线开关</button>
     <div className={ style.wrapper}>
-      <SketchRuler width={580} height={580} scale={state.scale} thick={state.thick} startX={state.startX} startY={state.startY} shadow={shadow} startNumX={0} endNumX={600} startNumY={0} endNumY={320} isShowReferLine={ state.isShowReferLine} onCornerClick={cornerClick}></SketchRuler>
-        <div  id={ style.screens}  ref={screensRef} onWheel={wheelHandle} onScroll={scrollHandle}>
+        <SketchRuler width={580} height={580} scale={store.scale} thick={store.thick} startX={store.startX} startY={store.startY} shadow={shadow} startNumX={0} endNumX={600} startNumY={0} endNumY={320} isShowReferLine={store.isShowReferLine} onCornerClick={cornerClick} lines={{
+    h: [0],
+    v: [0]
+  } }></SketchRuler>
+        <div  id={ style.screens}  ref={screensRef}  onScroll={handleScroll}>
           <div ref={containerRef} className={ style["screen-container"]}>
             <div id={style.canvas} style={canvasStyle} ref={ canvasRef}></div>
         </div>

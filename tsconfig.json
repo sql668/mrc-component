@@ -2,8 +2,8 @@
   "compilerOptions": {
     "baseUrl": "./",
     "paths": {
-      "@form-created/antd": ["components/index.ts"],
-      "@form-created/antd/*": ["packages/antd/src/*"],
+      "@meng-rc/antd": ["components/index.ts"],
+      "@meng-rc/antd/*": ["packages/antd/src/*"],
     },
     "strict": true,
     "strictNullChecks": true,

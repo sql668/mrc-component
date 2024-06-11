@@ -6,17 +6,17 @@ const config = {
   ...basicConfig,
   output: [
     {
-      name: '@form-created/antd',
+      name: '@meng-rc/antd',
       file: 'dist/index.umd.js',
       format: 'umd',
       exports: 'named',
       globals: {
         'react': 'React',
         'react-dom': 'ReactDOM',
-        'axios': 'Axios'
+        'axios': 'Axios',
       },
       plugins: [
-        terser()
+        terser(),
       ],
     },
   ],
@@ -24,9 +24,9 @@ const config = {
     replace({
       'process.env.NODE_ENV': JSON.stringify('production'),
     }),
-    ...basicConfig.plugins
+    ...basicConfig.plugins,
   ],
-  external: ['react', 'react-dom', 'axios']
+  external: ['react', 'react-dom', 'axios', 'antd','@ant-design/icons','@meng-rc/util','classnames'],
 }
 
 export default config

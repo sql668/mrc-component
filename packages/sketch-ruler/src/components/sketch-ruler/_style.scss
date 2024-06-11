@@ -27,6 +27,16 @@
     position: absolute;
   }
 
+  .indicator {
+    position: absolute;
+    pointer-events: none;
+
+    .value {
+      position: absolute;
+      background: white;
+    }
+  }
+
   .h-container,
   .v-container {
     position: absolute;

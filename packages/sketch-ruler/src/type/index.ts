@@ -29,9 +29,11 @@ export interface SketchRulerProps {
 
   palette:PaletteType
 
+  /** base64格式的图片 */
   eyeIcon?: string
   closeEyeIcon?: string
   ratio: number
+  /** 是否显示参考线 */
   isShowReferLine?: boolean
 
   onCornerClick?: (e: React.MouseEvent<HTMLAnchorElement>) => void

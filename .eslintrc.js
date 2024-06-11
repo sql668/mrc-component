@@ -227,7 +227,8 @@ module.exports = {
     'import/order': 0,
     'react/react-in-jsx-scope': 0,
     'import/prefer-default-export': 0,
-    '@typescript-eslint/no-unused-expressions':0,
+    '@typescript-eslint/no-unused-expressions': 0,
+    'react/no-array-index-key': 1,
   },
   globals: {
     gtag: true,

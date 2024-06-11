@@ -1,6 +1,6 @@
 {
-  "name": "@form-created/antd",
-  "version": "1.0.0",
+  "name": "@meng-rc/antd",
+  "version": "0.0.1",
   "description": "",
   "main": "dist/index.es.js",
   "module": "dist/index.es.js",
@@ -20,6 +20,17 @@
   "files": [
     "dist"
   ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "@meng-rc/util": "workspace:^",
+    "antd": "^5.0.0",
+    "@ant-design/icons": "^5.3.1",
+    "rc-tree": "^5.8.7",
+    "rc-util": "^5.41.0",
+    "classnames": "^2.3.1"
+  },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^22.0.2",
     "@rollup/plugin-json": "^4.1.0",
@@ -36,8 +47,10 @@
     "@types/react-dom": "^18.0.6",
     "@types/react-transition-group": "^4.4.5",
     "babel-plugin-named-exports-order": "^0.0.2",
+
     "cross-env": "^7.0.3",
     "husky": "^8.0.1",
+    "lodash-es": "^4.17.21",
     "prop-types": "^15.8.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -51,9 +64,7 @@
     "sass": "^1.54.4",
     "typescript": "~5.4.5",
     "web-vitals": "^2.1.4",
-    "webpack": "^5.72.0",
-    "classnames": "^2.3.1",
-    "lodash-es": "^4.17.21"
+    "webpack": "^5.72.0"
   },
   "peerDependencies": {
     "react": ">=16.8.0",

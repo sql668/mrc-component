@@ -1,6 +1,6 @@
 {
-  "name": "@form-created/sketch-ruler",
-  "version": "1.0.0",
+  "name": "@meng-rc/sketch-ruler",
+  "version": "0.0.1",
   "description": "",
   "main": "dist/index.es.js",
   "module": "dist/index.es.js",
@@ -59,5 +59,8 @@
     "react": ">=16.8.0",
     "react-dom": ">=16.8.0",
     "lodash-es": "^4.17.21"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
