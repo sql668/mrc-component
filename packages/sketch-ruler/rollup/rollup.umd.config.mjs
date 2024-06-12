@@ -6,7 +6,7 @@ const config = {
   ...basicConfig,
   output: [
     {
-      name: '@meng-rc/antd',
+      name: 'MrcSketchRuler',
       file: 'dist/index.umd.js',
       format: 'umd',
       exports: 'named',

@@ -1,7 +1,11 @@
-import type { SketchRulerProps} from "@type"
-import { RulerWrapper } from "./wrapper";
 import { useEffect, useMemo, useState } from "react";
+import type { SketchRulerProps } from "@type";
+
+
+
 import { closeEye64, eye64 } from "./cornerImg64";
+import { RulerWrapper } from "./wrapper";
+
 
 // const SketchRulerPropsDefault = {
 //   width: 200,
@@ -17,7 +21,7 @@ import { closeEye64, eye64 } from "./cornerImg64";
 //   lines: {h:[],v:[]},
 // }
 
-export function SketchRuler(props: SketchRulerProps) {
+function SketchRuler(props: SketchRulerProps) {
   const { width = 200, height = 200, eyeIcon, closeEyeIcon, scale = 1, thick = 16, palette, startX, startY = 0,startNumX=-Infinity, endNumX=Infinity,startNumY=-Infinity,endNumY=Infinity,shadow = { x: 0, y: 0, width: 0, height: 0 }, lines = {h:[],v:[]},isShowReferLine=true,ratio,onCornerClick } = props
   const [showReferLine, setShowReferLine] = useState<boolean>(isShowReferLine)
 
@@ -89,3 +93,9 @@ export function SketchRuler(props: SketchRulerProps) {
     </div>
   );
 }
+
+if (process.env.NODE_ENV !== 'production') {
+  (SketchRuler as any).whyDidYouRender = true;
+}
+
+export { SketchRuler}

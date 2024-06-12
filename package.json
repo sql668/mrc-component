@@ -8,11 +8,13 @@
     "dev": "pnpm -C example dev",
     "build": "pnpm -C packages/sketch-ruler build",
     "lint:script": "eslint . --ext .js,.jsx,.ts,.tsx --cache",
-    "p-antd": "pnpm --filter \"@meng-rc/antd\" publish  --no-git-checks"
+    "p-antd": "pnpm --filter \"@meng-rc/antd\" publish  --no-git-checks",
+    "p-util": "pnpm --filter \"@meng-rc/util\" publish  --no-git-checks",
+    "p-sr": "pnpm --filter \"@meng-rc/sketch-ruler\" publish  --no-git-checks"
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
+  "license": "Apache-2.0",
   "devDependencies": {
     "@babel/eslint-plugin": "^7.24.5",
     "@ianvs/prettier-plugin-sort-imports": "^4.2.1",

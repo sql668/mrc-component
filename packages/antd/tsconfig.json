@@ -21,7 +21,8 @@
     "noEmit": true,
     "jsx": "react-jsx",
     "paths": {
-      "tslib" : ["../../node_modules/tslib/tslib.d.ts"]
+      "tslib" : ["../../node_modules/tslib/tslib.d.ts"],
+      "@meng-rc/util": ["../util/src/index.tsx"]
     }
   },
   "include": [

@@ -6,14 +6,16 @@ const config = {
   ...basicConfig,
   output: [
     {
-      name: '@meng-rc/antd',
+      name: 'MrcAntd',
       file: 'dist/index.umd.js',
       format: 'umd',
       exports: 'named',
       globals: {
         'react': 'React',
         'react-dom': 'ReactDOM',
-        'axios': 'Axios',
+        '@meng-rc/util': 'MrcUtil',
+        'antd': 'antd',
+        'classnames': 'classNames',
       },
       plugins: [
         terser(),
@@ -26,7 +28,7 @@ const config = {
     }),
     ...basicConfig.plugins,
   ],
-  external: ['react', 'react-dom', 'axios', 'antd','@ant-design/icons','@meng-rc/util','classnames'],
+  external: ['react', 'react-dom', 'antd','@ant-design/icons','@meng-rc/util','classnames'],
 }
 
 export default config

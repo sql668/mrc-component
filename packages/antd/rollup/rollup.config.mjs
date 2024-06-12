@@ -30,16 +30,16 @@ const config = {
     json(),
     typescript({ tsconfigOverride: overrides }),
     sass({ output: 'dist/index.css' }),
-    terser({
-      compress: {
-        drop_console: true,
-        drop_debugger: true,
-      },
-      mangle: true,
-      output: {
-        beautify: false,
-      },
-    }),
+    // terser({
+    //   compress: {
+    //     drop_console: true,
+    //     drop_debugger: true,
+    //   },
+    //   mangle: true,
+    //   output: {
+    //     beautify: false,
+    //   },
+    // }),
   ],
 }
 

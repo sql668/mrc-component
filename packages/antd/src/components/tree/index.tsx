@@ -180,14 +180,6 @@ const Tree = forwardRef((props: TreeProps, ref) => {
     }
     return keys;
   }, [expandedKeys, searchExpandedKeys, searchValue]);
-  // 根据selectedkeys自动展开相应的层级节点
-  useEffect(() => {
-    const sk = treeSelextedKeys || treeDefaultSelectedKeys;
-    if (autoExpand && sk) {
-      // 从初始化给的selectedkey自动
-    }
-  }, [autoExpand, treeDefaultSelectedKeys, treeSelextedKeys]);
-
   useEffect(() => {
     if (searchValue) {
       setSearchExpandedKeys(getAllKeys(treeData, mergedFieldNames));
@@ -329,7 +321,16 @@ const Tree = forwardRef((props: TreeProps, ref) => {
         triggerChange(newRawValues, info);
       }
     },
-    [internalSelectedKeys, keyEntities],
+    [
+      rawKeys,
+      keyEntities,
+      rawCheckedKeys,
+      rawHalfCheckedKeys,
+      mergedMultiple,
+      treeConduction,
+      triggerChange,
+      splitRawKeys,
+    ],
   );
 
   // tree node check
@@ -370,14 +371,14 @@ const Tree = forwardRef((props: TreeProps, ref) => {
         eventInfo.current = info;
       }
     },
-    [internalSelectedKeys, keyEntities],
+    [rawKeys, rawCheckedKeys,rawHalfCheckedKeys, treeConduction, splitRawKeys,keyEntities],
   );
 
   const onInternalCheck = (_: any, info: TreeCheckEventInfo): void => {
     const { node } = info;
     // eslint-disable-next-line no-useless-return
     if (mergedCheckable && isCheckDisabled(node)) return;
-    onTreeNodeCheckEvent(node.key, {
+    onTreeNodeChangeEvent(node.key, {
       event: 'check',
       node: info.node,
       selected: !rawCheckedKeys.includes(node.key),

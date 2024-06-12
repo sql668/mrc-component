@@ -392,8 +392,6 @@ importers:
         specifier: ^5.72.0
         version: 5.91.0
 
-  packages/core: {}
-
   packages/sketch-ruler:
     devDependencies:
       '@rollup/plugin-commonjs':
