@@ -8,7 +8,8 @@
     "dev": "pnpm -C example dev",
     "build": "pnpm -C packages/sketch-ruler build",
     "lint:script": "eslint . --ext .js,.jsx,.ts,.tsx --cache",
-    "p-antd": "pnpm --filter \"@meng-rc/antd\" publish  --no-git-checks",
+    "antd-build": "pnpm --filter \"@meng-rc/antd\" build",
+    "antd-publish": "pnpm --filter \"@meng-rc/antd\" publish  --no-git-checks",
     "p-util": "pnpm --filter \"@meng-rc/util\" publish  --no-git-checks",
     "p-sr": "pnpm --filter \"@meng-rc/sketch-ruler\" publish  --no-git-checks"
   },

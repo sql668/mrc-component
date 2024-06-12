@@ -8,6 +8,6 @@ import './styles/index.scss'
 //   whyDidYouRender(React);
 // }
 
-export { default as Button } from './components/Button'
+//export { default as Button } from './components/Button'
 export * from './components/tree'
 export { default as Switch} from './components/switch'

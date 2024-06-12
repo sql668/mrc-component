@@ -274,7 +274,7 @@ importers:
         specifier: ^5.2.0
         version: 5.2.12(@types/node@16.18.97)(sass@1.77.2)(sugarss@2.0.0)(terser@5.31.0)
 
-  packages/antd:
+  packages/mrc-antd:
     dependencies:
       '@ant-design/icons':
         specifier: ^5.3.1
@@ -288,9 +288,6 @@ importers:
       classnames:
         specifier: ^2.3.1
         version: 2.5.1
-      rc-tree:
-        specifier: ^5.8.7
-        version: 5.8.7(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       rc-util:
         specifier: ^5.41.0
         version: 5.41.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -7260,6 +7257,10 @@ packages:
   q@1.5.1:
     resolution: {integrity: sha512-kV/CThkXo6xyFEZUugw/+pIOywXcDbFYgSct5cT3gqlbkBE1SJdwy6UQoZvodiWF/ckQLZyDE/Bu1M6gVu5lVw==}
     engines: {node: '>=0.6.0', teleport: '>=0.2.0'}
+    deprecated: |-
+      You or someone you depend on is using Q, the JavaScript Promise library that gave JavaScript developers strong feelings about promises. They can almost certainly migrate to the native JavaScript promise now. Thank you literally everyone for joining me in this bet against the odds. Be excellent to each other.
+
+      (For a CapTP with native promises, see @endo/eventual-send and @endo/captp)
 
   qrcode.react@3.1.0:
     resolution: {integrity: sha512-oyF+Urr3oAMUG/OiOuONL3HXM+53wvuH3mtIWQrYmsXoAq0DkvZp2RYUWFSMFtbdOpuS++9v+WAkzNVkMlNW6Q==}

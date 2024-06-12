@@ -47,7 +47,6 @@ const config = {
       output: {
         beautify: true,
       },
-      warnings: true
     }),
     excludeDependenciesFromBundle(),
   ],
