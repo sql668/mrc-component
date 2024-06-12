@@ -96,6 +96,19 @@ export type KeyEntities<DateType extends BasicDataNode = any> = Record<
   DataEntity<DateType>
   >;
 
+  export interface Wrapper {
+    posEntities: Record<string, DataEntity>;
+    keyEntities: KeyEntities;
+  }
+
+  export type ExternalGetKey = GetKey<DataNode> | string;
+
+  export interface TraverseDataNodesConfig {
+    childrenPropName?: string;
+    externalGetKey?: ExternalGetKey;
+    fieldNames?: FieldNames;
+  }
+
 export type MergeFieldNamesProp = {
   title: string
   key: string

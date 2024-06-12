@@ -5,7 +5,7 @@ import type { TreeProps as ATreeProps } from 'antd';
 
 
 
-import type { BasicDataNode, DataEntity, DataNode, FieldNames, GetKey, KeyEntities, KeyTitleType, MergeFieldNamesProp, SafeKey, TreeDataProp } from './type';
+import type { BasicDataNode, DataEntity, DataNode, ExternalGetKey, FieldNames, GetKey, KeyEntities, KeyTitleType, MergeFieldNamesProp, SafeKey, TraverseDataNodesConfig, TreeDataProp, Wrapper } from './type';
 
 
 export function toArray<T>(value: T | T[]): T[] {
@@ -126,18 +126,7 @@ export function getKey(key: SafeKey, pos: string) {
 
 
 
-interface Wrapper {
-  posEntities: Record<string, DataEntity>;
-  keyEntities: KeyEntities;
-}
 
-type ExternalGetKey = GetKey<DataNode> | string;
-
-interface TraverseDataNodesConfig {
-  childrenPropName?: string;
-  externalGetKey?: ExternalGetKey;
-  fieldNames?: FieldNames;
-}
 
 export function getPosition(level: string | number, index: number) {
   return `${level}-${index}`;
@@ -182,7 +171,7 @@ export function traverseDataNodes(
       syntheticGetKey = (node: DataNode) => (externalGetKey as GetKey<DataNode>)(node);
     }
   } else {
-    syntheticGetKey = (node:any, pos) => getKey(node[fieldKey], pos);
+    syntheticGetKey = (node:any, pos) => getKey(node[fieldKey], pos || "-");
   }
 
   // Process
@@ -192,9 +181,9 @@ export function traverseDataNodes(
     parent?: { node: DataNode; pos: string; level: number },
     pathNodes?: DataNode[],
   ) {
-    const children = node ? node[mergeChildrenPropName] : dataNodes;
-    const pos = node ? getPosition(parent.pos, index) : '0';
-    const connectNodes = node ? [...pathNodes, node] : [];
+    const children = node ? (node as any)[mergeChildrenPropName] : dataNodes;
+    const pos = node ? getPosition(parent?.pos || '0', index || 0) : '0';
+    const connectNodes = node ? [...pathNodes || [], node] : [];
 
     // Process node if is not root
     if (node) {
@@ -204,17 +193,17 @@ export function traverseDataNodes(
         index,
         pos,
         key,
-        parentPos: parent.node ? parent.pos : null,
-        level: parent.level + 1,
+        parentPos: parent?.node ? parent.pos : null,
+        level: (parent?.level || 0) + 1,
         nodes: connectNodes,
       };
 
-      callback(data);
+      callback(data as any);
     }
 
     // Process children node
     if (children) {
-      children.forEach((subNode, subIndex) => {
+      children.forEach((subNode:any, subIndex:any) => {
         processNode(
           subNode,
           subIndex,
@@ -229,7 +218,7 @@ export function traverseDataNodes(
     }
   }
 
-  processNode(null);
+  processNode(null as any);
 }
 
 
@@ -278,11 +267,11 @@ export function convertDataToEntities(
 
       const mergedKey = getKey(key, pos);
 
-      posEntities[pos] = entity;
-      keyEntities[mergedKey as SafeKey] = entity;
+      (posEntities as any)[pos] = entity;
+      (keyEntities as any)[mergedKey] = entity;
 
       // Fill children
-      entity.parent = posEntities[parentPos];
+      entity.parent = (posEntities as any)[parentPos];
       if (entity.parent) {
         entity.parent.children = entity.parent.children || [];
         entity.parent.children.push(entity);
