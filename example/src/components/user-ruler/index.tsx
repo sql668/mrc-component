@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { SketchRuler } from '@fdesign/sketch-ruler';
+import { SketchRuler } from '@fdesign/component';
 
 
 
@@ -121,7 +121,7 @@ export function UserRuler() {
       <div className={style.top}>缩放比例:{ store.scale  }</div>
       <button className={ style.right} onClick={showLineClick}>辅助线开关</button>
     <div className={ style.wrapper}>
-        <SketchRuler width={580} height={580} scale={store.scale} thick={store.thick} startX={store.startX} startY={store.startY} shadow={shadow} startNumX={0} endNumX={600} startNumY={0} endNumY={320} isShowReferLine={store.isShowReferLine} onCornerClick={cornerClick} lines={{
+        <SketchRuler ratio={1} width={580} height={580} scale={store.scale} thick={store.thick} startX={store.startX} startY={store.startY} shadow={shadow} startNumX={0}  startNumY={0}  isShowReferLine={store.isShowReferLine} onCornerClick={cornerClick} lines={{
     h: [0],
     v: [0]
   } }></SketchRuler>

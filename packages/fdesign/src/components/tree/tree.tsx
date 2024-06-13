@@ -49,7 +49,7 @@ const Tree = forwardRef((props: TreeProps, ref) => {
   const {
     treeData,
     multiple: treeMultiple,
-    searchValue = '',
+    searchValue,
     treeNodeFilterProp = 'title',
     filterTreeNode = true,
     fieldNames,
@@ -95,12 +95,11 @@ const Tree = forwardRef((props: TreeProps, ref) => {
   }, []);
 
   // searchValue 只显示匹配的节点以及父节点
-  const filterTreeData = useFilterTreeData(treeData, searchValue, {
+  const filterTreeData = useFilterTreeData(treeData, searchValue || "", {
     fieldNames: mergedFieldNames,
     treeNodeFilterProp,
     filterTreeNode,
   });
-  console.log('filterTreeData: ', filterTreeData);
   
 
   const { keyEntities } = useDataEntities(filterTreeData, mergedFieldNames);
@@ -160,15 +159,17 @@ const Tree = forwardRef((props: TreeProps, ref) => {
   //const [expandedKeys, setExpandedKeys] = useState<Key[] | undefined>(treeDefaultExpandedKeys);
   const [expandedKeys, setExpandedKeys] = useState<Key[] | undefined>(treeExpandedKeys);
   useLayoutUpdateEffect(() => {
-    let checkedKeys: SafeKey[] = rawLabeledValues.map(({ key }) => key);
-    let sk = getExpandKeysFromCheck(checkedKeys, keyEntities);
-    setExpandedKeys(sk);
+    if (autoExpand && !expandAll) { 
+      let checkedKeys: SafeKey[] = rawLabeledValues.map(({ key }) => key);
+      let sk = getExpandKeysFromCheck(checkedKeys, keyEntities);
+      setExpandedKeys(sk);
+    } 
   }, [treeData]);
   const [searchExpandedKeys, setSearchExpandedKeys] = useState<Key[]>();
 
   // 一键展开/收缩所有
   useEffect(() => {
-    if (keyEntities && expandAll !== undefined) {
+    if (keyEntities && Object.keys(keyEntities).length > 0 && expandAll !== undefined) {
       setExpandedKeys(expandAll ? Object.keys(keyEntities).map((key) => key) : []);
     }
   }, [expandAll, keyEntities]);
@@ -406,6 +407,8 @@ const Tree = forwardRef((props: TreeProps, ref) => {
     getCheckedNodes: () => getTreeNodeByKeys(rawCheckedKeys),
     getHalfCheckedNodes: () => getTreeNodeByKeys(rawHalfCheckedKeys),
   }));
+
+  
 
   if (!filterTreeData || filterTreeData?.length === 0) {
     return <Empty />;

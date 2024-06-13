@@ -23,7 +23,6 @@ export function useFilterTreeData(
 
   const { children: fieldChildren } = fieldNames || {children:"children"};
   return useMemo(() => {
-    debugger
     if (!searchValue || filterTreeNode === false) {
       return treeData;
     }

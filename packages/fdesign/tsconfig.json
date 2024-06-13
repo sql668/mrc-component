@@ -24,7 +24,7 @@
     "paths": {
       "tslib" : ["../../node_modules/tslib/tslib.d.ts"],
       "@fdesign/util": ["../util/src/index.tsx"],
-      "@fdesign/component": ["./src/index.tsx"],
+      "@fdesign/component": ["index.tsx"],
     }
   },
   "include": [

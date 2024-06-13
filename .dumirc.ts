@@ -2,6 +2,7 @@ import path from 'path';
 import { defineConfig } from 'dumi';
 
 
+console.log(path.join(__dirname, 'packages/fdesign/src'));
 
 
 
@@ -13,10 +14,11 @@ export default defineConfig({
     atomDirs: [
       // 在这里修改components的匹配路径
       { type: 'component', dir: '/packages/fdesign/src/components' },
-      { type: 'util', dir: '/packages/util/src/' },
+      { type: 'util', dir: '/packages/util/src' },
     ],
     codeBlockMode: 'passive',
   },
+  mfsu:false,
   themeConfig: {
     name: 'fdesign',
     nav: [
@@ -28,7 +30,7 @@ export default defineConfig({
   alias: {
     antd: path.join(__dirname, 'node_modules/antd'),
     '@fdesign/component': path.join(__dirname, 'packages/fdesign/src'),
-    '@ant-design/icons$': '@ant-design/icons/lib',
+    //'@ant-design/icons$': '@ant-design/icons/lib',
   },
   extraBabelPlugins: [
     [

@@ -22,7 +22,7 @@ function SearchDemo() {
    }, []);
   return <div>
     <Search style={{ marginBottom: 8 }} placeholder="Search" onChange={(e) => setSearchValue(e.target.value)} />
-    <Tree treeData={treeData} fieldNames={{ title: "menuName", key: "menuId" }} key="menuId" searchValue={searchValue} treeNodeFilterProp="menuName"></Tree>
+    <Tree treeData={treeData as any} fieldNames={{ title: "menuName", key: "menuId" }} key="menuId" searchValue={searchValue} treeNodeFilterProp="menuName"></Tree>
   </div>
 }
 // 一定得默认导出

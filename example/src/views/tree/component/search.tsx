@@ -37,7 +37,7 @@ function SearchTreeDemo() {
     // }, 6000);
   }, [])
 
-  const [searchValue, setSearchValue] = useState("")
+  const [searchValue, setSearchValue] = useState()
 
   const checkHandle = (checkedKeys: any, info: any) => {
     console.log(checkedKeys, info);
@@ -63,10 +63,7 @@ function SearchTreeDemo() {
     <Search style={{ marginBottom: 8 }} placeholder="Search" onChange={(e) => setSearchValue(e.target.value)} />
     <Row>
       <Col span={12}>
-        <Tree ref={mt} treeData={treeData} selectedKeys={checkedKeys} autoExpand checkable  onSelect={changeHandle} expandAll={expandAll} onExpand={(keys, info) => {
-          console.log(keys, info);
-
-        }} fieldNames={{ title: "menuName", key: "menuId" }} key="menuId" searchValue={searchValue} filterTreeNode={true} treeNodeFilterProp="menuName"></Tree>
+        <Tree ref={mt} treeData={treeData}  fieldNames={{ title: "menuName", key: "menuId" }} key="menuId" searchValue={searchValue} treeNodeFilterProp="menuName"></Tree>
       </Col>
       {/* <Col span={12}>
         {
