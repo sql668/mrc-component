@@ -63,7 +63,7 @@ function SearchTreeDemo() {
     <Search style={{ marginBottom: 8 }} placeholder="Search" onChange={(e) => setSearchValue(e.target.value)} />
     <Row>
       <Col span={12}>
-        <Tree ref={mt} treeData={treeData}  fieldNames={{ title: "menuName", key: "menuId" }} key="menuId" searchValue={searchValue} treeNodeFilterProp="menuName"></Tree>
+        <Tree ref={mt} treeData={treeData} fieldNames={{ title: "menuName", key: "menuId" }} expandAll={ expandAll} key="menuId" searchValue={searchValue} treeNodeFilterProp="menuName"></Tree>
       </Col>
       {/* <Col span={12}>
         {

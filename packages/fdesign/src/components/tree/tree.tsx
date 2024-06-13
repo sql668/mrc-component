@@ -169,10 +169,10 @@ const Tree = forwardRef((props: TreeProps, ref) => {
 
   // 一键展开/收缩所有
   useEffect(() => {
-    if (keyEntities && Object.keys(keyEntities).length > 0 && expandAll !== undefined) {
-      setExpandedKeys(expandAll ? Object.keys(keyEntities).map((key) => key) : []);
+    if (filterTreeData && filterTreeData.length > 0 && expandAll !== undefined) {
+      setExpandedKeys(expandAll ? getAllKeys(filterTreeData, mergedFieldNames) : []);
     }
-  }, [expandAll, keyEntities]);
+  }, [expandAll, filterTreeData, mergedFieldNames]);
 
   const mergedExpandedKeys = useMemo(() => {
     let keys = undefined;
