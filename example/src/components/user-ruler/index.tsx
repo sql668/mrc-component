@@ -1,6 +1,10 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { SketchRuler } from '@fdesign/sketch-ruler';
+
+
+
 import style from './index.module.scss';
-import { SketchRuler } from '@meng-rc/sketch-ruler'
+
 
 const rectWidth = 600
 const rectHeight = 320

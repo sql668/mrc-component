@@ -9,3 +9,4 @@ lib
 .env.dev
 .env.prod
 .dumi/tmp*
+docs-dist

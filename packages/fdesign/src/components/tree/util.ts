@@ -1,11 +1,33 @@
 ;
+
 //import type { Key } from 'react';
-import { warning } from '@meng-rc/util';
+import { warning } from '@fdesign/util';
 import type { TreeProps as ATreeProps } from 'antd';
 
 
 
 import type { BasicDataNode, DataEntity, DataNode, ExternalGetKey, FieldNames, GetKey, KeyEntities, KeyTitleType, MergeFieldNamesProp, SafeKey, TraverseDataNodesConfig, TreeDataProp, Wrapper } from './type';
+
+
+;
+
+
+
+
+
+
+
+
+
+
+;
+
+
+
+
+
+
+
 
 
 export function toArray<T>(value: T | T[]): T[] {
@@ -36,7 +58,7 @@ export function fillLegacyProps(dataNode: DataNode): any {
       get() {
         warning(
           false,
-          'New `@meng-rc/antd tree` not support return node instance as argument anymore. Please consider to remove `props` access.',
+          'New `fdesign tree` not support return node instance as argument anymore. Please consider to remove `props` access.',
         );
         return cloneNode;
       },

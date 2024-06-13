@@ -17,7 +17,18 @@
     "lib": ["dom", "es2017"],
     "skipLibCheck": true,
     "stripInternal": true,
-    "resolvePackageJsonExports": true
+    "resolvePackageJsonExports": true,
+    "paths": {
+      "@@/*": [
+        ".dumi/tmp/*"
+      ],
+      "@fdesign/component": [
+        "packages/fdesign/src/index.tsx"
+      ],
+      "@fdesign/component/*": [
+        "packages/fdesign/src/*",
+      ]
+    }
   },
   "include": [".dumirc.ts","packages/**/*"],
   "exclude": ["node_modules", "lib", "es"]

@@ -6,7 +6,7 @@ const config = {
   ...basicConfig,
   output: [
     {
-      name: 'MrcUtil',
+      name: 'FDUtil',
       file: 'dist/index.umd.js',
       format: 'umd',
       exports: 'named',

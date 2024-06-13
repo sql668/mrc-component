@@ -50,6 +50,7 @@ const config = {
     }),
     excludeDependenciesFromBundle(),
   ],
+  //external:["**/demo/*"]
 }
 
 export default config

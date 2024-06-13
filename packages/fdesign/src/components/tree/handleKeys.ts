@@ -1,17 +1,14 @@
+;
 /* eslint-disable no-loop-func */
-import { warning } from '@meng-rc/util';
+import { warning } from '@fdesign/util';
+
+
 
 //import type { BasicDataNode, DataNode } from 'antd/es/tree';
 
-import type {
-  BasicDataNode,
-  DataEntity,
-  DataNode,
-  GetCheckDisabled,
-  KeyEntities,
-  SafeKey,
-} from './type';
+import type { BasicDataNode, DataEntity, DataNode, GetCheckDisabled, KeyEntities, SafeKey } from './type';
 import getEntity from './util';
+
 
 interface ConductReturnType {
   checkedKeys: SafeKey[];

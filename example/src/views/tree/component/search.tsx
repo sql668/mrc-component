@@ -1,8 +1,7 @@
 import { useEffect, useRef, useState } from "react";
-import { Tree } from "@meng-rc/antd";
-import { DraftValueType } from "@meng-rc/antd/components/tree/type";
-import { Tree as ATree, Button, Card, Checkbox, Col, Row } from "antd";
+import { Tree as ATree, Button, Card, Checkbox, Col, Row } from 'antd';
 import Search from "antd/es/input/Search";
+import { SelectedKeysType, Tree } from '@fdesign/component';
 
 
 
@@ -12,7 +11,7 @@ import { TreeDemoData, TreeDemoProp } from "../data";
 function SearchTreeDemo() {
   const [treeData, setTreeData] = useState<TreeDemoProp[]>()
   //const [checkedKeys, setCheckedKeys] = useState<string[]>(["1-1-1","1-1-2","1-1","1"])
-  const [checkedKeys, setCheckedKeys] = useState<DraftValueType>([
+  const [checkedKeys, setCheckedKeys] = useState<SelectedKeysType>([
     { key: '1-1-1' },
     //{ key: '1-1-2' },
     //{ key: '1-1' },
@@ -27,7 +26,6 @@ function SearchTreeDemo() {
     // { key: '4-1' },
     // { key: '4-2' },
     // { key: '4', halfChecked: true },
-
   ]);
   useEffect(() => {
     setTreeData(TreeDemoData);

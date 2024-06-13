@@ -12,15 +12,32 @@ export default defineConfig({
     //docDirs: [{ type: 'doc', dir: '/docs' }],
     atomDirs: [
       // 在这里修改components的匹配路径
-      { type: 'component', dir: '/packages/antd/src/components' },
+      { type: 'component', dir: '/packages/fdesign/src/components' },
       { type: 'util', dir: '/packages/util/src/' },
     ],
     codeBlockMode: 'passive',
   },
   themeConfig: {
+    name: 'fdesign',
     nav: [
       { title: '指南', link: '/guide/introduce' },
       { title: '组件', link: '/components/tree' },
     ],
+    prefersColor: { default: 'light', switch: true },
   },
+  alias: {
+    antd: path.join(__dirname, 'node_modules/antd'),
+    '@fdesign/component': path.join(__dirname, 'packages/fdesign/src'),
+    '@ant-design/icons$': '@ant-design/icons/lib',
+  },
+  extraBabelPlugins: [
+    [
+      'babel-plugin-import',
+      {
+        libraryName: 'antd',
+        libraryDirectory: 'es',
+        style: true,
+      },
+    ],
+  ],
 });

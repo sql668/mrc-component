@@ -6,14 +6,14 @@ const config = {
   ...basicConfig,
   output: [
     {
-      name: 'MrcAntd',
+      name: 'fdesignComponent',
       file: 'dist/index.umd.js',
       format: 'umd',
       exports: 'named',
       globals: {
         'react': 'React',
         'react-dom': 'ReactDOM',
-        '@meng-rc/util': 'MrcUtil',
+        '@fdesign/util': 'FDUtil',
         'antd': 'antd',
         'classnames': 'classNames',
       },
@@ -28,7 +28,7 @@ const config = {
     }),
     ...basicConfig.plugins,
   ],
-  external: ['react', 'react-dom', 'antd','@ant-design/icons','@meng-rc/util','classnames'],
+  external: ['react', 'react-dom', 'antd', '@ant-design/icons', '@fdesign/util', 'classnames'],
 }
 
 export default config

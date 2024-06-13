@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 import LoadingOutlined from '@ant-design/icons/LoadingOutlined';
-import { useMergedState } from '@meng-rc/util';
+import { useMergedState } from '@fdesign/util';
 import Wave from 'antd/es/_util/wave';
 import { ConfigContext } from 'antd/es/config-provider';
 import DisabledContext from 'antd/es/config-provider/DisabledContext';
@@ -10,7 +10,10 @@ import useSize from 'antd/es/config-provider/hooks/useSize';
 import useStyle from 'antd/es/switch/style';
 import classNames from 'classnames';
 
+
+
 import RcSwitch from './rcSwitch';
+
 
 export type SwitchSize = 'small' | 'default';
 export type SwitchChangeEventHandler = (

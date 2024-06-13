@@ -1,4 +1,4 @@
-# @meng-rc/antd
+# fdesign
 
 基于antd5.0版本，对部分组件进行再此封装
 
@@ -9,7 +9,7 @@ react版本大于16.8
 ## 安装
 
 ```
-npm install @meng-rc/antd
+npm install fdesign
 ```
 
 

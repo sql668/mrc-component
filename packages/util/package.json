@@ -1,6 +1,6 @@
 {
-  "name": "@meng-rc/util",
-  "version": "0.0.2",
+  "name": "@fdesign/util",
+  "version": "0.0.1",
   "description": "",
   "main": "dist/index.es.js",
   "module": "dist/index.es.js",
@@ -14,7 +14,7 @@
     "build-umd": "rollup --config rollup/rollup.umd.config.mjs",
     "build-css": "sass ./src/styles/index.scss ./dist/index.css"
   },
-  "keywords": ["react component","util","meng","meng-rc"],
+  "keywords": ["react component","util","meng","fdesign"],
   "author": "",
   "license": "Apache-2.0",
   "files": [

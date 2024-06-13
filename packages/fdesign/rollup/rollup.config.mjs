@@ -10,7 +10,7 @@ import { terser } from 'rollup-plugin-terser';
 
 const overrides = {
   compilerOptions: { declaration: true },
-  exclude: ["src/**/*.test.tsx", "src/**/*.stories.tsx", "src/**/*.stories.mdx", "src/setupTests.ts"],
+  exclude: ["src/**/*.test.tsx", "src/**/*.stories.tsx", "src/**/*.stories.mdx", "src/setupTests.ts","src/**/demo/*"],
 }
 
 // __filename包含当前模块文件的绝对路径

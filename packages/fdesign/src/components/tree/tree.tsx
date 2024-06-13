@@ -1,6 +1,6 @@
 import type { Key } from 'react';
 import { forwardRef, useCallback, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react';
-import { useLayoutUpdateEffect, useMergedState } from '@meng-rc/util';
+import { useLayoutUpdateEffect, useMergedState } from '@fdesign/util';
 import type { TreeProps as ATreeProps } from 'antd';
 import { Tree as ATree, Empty } from 'antd';
 import type { EventDataNode } from 'antd/es/tree';
@@ -51,7 +51,7 @@ const Tree = forwardRef((props: TreeProps, ref) => {
     multiple: treeMultiple,
     searchValue = '',
     treeNodeFilterProp = 'title',
-    filterTreeNode = false,
+    filterTreeNode = true,
     fieldNames,
     checkable: treeCheckable,
     checkStrictly: treeCheckStrictly,
@@ -100,6 +100,8 @@ const Tree = forwardRef((props: TreeProps, ref) => {
     treeNodeFilterProp,
     filterTreeNode,
   });
+  console.log('filterTreeData: ', filterTreeData);
+  
 
   const { keyEntities } = useDataEntities(filterTreeData, mergedFieldNames);
 

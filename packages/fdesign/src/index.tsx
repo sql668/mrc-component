@@ -9,5 +9,6 @@ import './styles/index.scss'
 // }
 
 //export { default as Button } from './components/Button'
-export * from './components/tree'
-export { default as Switch} from './components/switch'
+export * from './components';
+export * from './hooks';
+//export { default as Switch} from './components/switch'
