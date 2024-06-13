@@ -11,7 +11,9 @@
     "antd-build": "pnpm --filter \"@meng-rc/antd\" build",
     "antd-publish": "pnpm --filter \"@meng-rc/antd\" publish  --no-git-checks",
     "p-util": "pnpm --filter \"@meng-rc/util\" publish  --no-git-checks",
-    "p-sr": "pnpm --filter \"@meng-rc/sketch-ruler\" publish  --no-git-checks"
+    "p-sr": "pnpm --filter \"@meng-rc/sketch-ruler\" publish  --no-git-checks",
+    "dumi": "cross-env dumi dev",
+    "dumi-build": "cross-env dumi build"
   },
   "keywords": [],
   "author": "",

@@ -19,6 +19,6 @@
     "stripInternal": true,
     "resolvePackageJsonExports": true
   },
-  "include": ["packages/**/*"],
+  "include": [".dumirc.ts","packages/**/*"],
   "exclude": ["node_modules", "lib", "es"]
 }
