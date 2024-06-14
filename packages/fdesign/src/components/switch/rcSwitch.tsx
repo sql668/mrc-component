@@ -1,12 +1,17 @@
 'use client';
 
+import { error } from 'console';
 import * as React from 'react';
-import { KeyCode, useMergedState } from '@fdesign/util';
+import { isBoolean, isPromiseLike, KeyCode, useMergedState, warning } from '@fdesign/util';
 import classNames from 'classnames';
 
 
 
 
+
+const sty = {
+  outline:0
+}
 
 export type SwitchChangeEventHandler = (
   checked: boolean,
@@ -21,7 +26,7 @@ interface SwitchProps
   disabled?: boolean;
   checkedChildren?: React.ReactNode;
   unCheckedChildren?: React.ReactNode;
-  beforeChange?: (checked: boolean) => Promise<void>;
+  beforeChange?: (checked:boolean) => Promise<boolean> | boolean;
   onChange?: SwitchChangeEventHandler;
   onKeyDown?: React.KeyboardEventHandler<HTMLButtonElement>;
   onClick?: SwitchClickEventHandler;
@@ -60,29 +65,42 @@ const RcSwitch = React.forwardRef<HTMLButtonElement, SwitchProps>(
     function triggerChange(
       newChecked: boolean,
       event: React.MouseEvent<HTMLButtonElement> | React.KeyboardEvent<HTMLButtonElement>,
-    ) {
+    ):Promise<boolean> | void {
       let mergedChecked = innerChecked;
-
-      if (!disabled) {
-        mergedChecked = newChecked;
-        if (!beforeChange) {
-          setInnerChecked(mergedChecked);
-          onChange?.(mergedChecked, event);
-        } else {
-          const before = beforeChange(mergedChecked);
-          if (before && before.then) {
-            before.then(() => {
-              setInnerChecked(mergedChecked);
-              onChange?.(mergedChecked, event);
-            });
-          } else {
-            setInnerChecked(mergedChecked);
-            onChange?.(mergedChecked, event);
-          }
-        }
+      if (disabled) {
+        return
+      }
+      mergedChecked = newChecked;
+      if (!beforeChange) {
+        setInnerChecked(mergedChecked);
+        onChange?.(mergedChecked, event);
+        return Promise.resolve(mergedChecked)
       }
 
-      return mergedChecked;
+      const shouldChange = beforeChange(mergedChecked);
+      const isPromiseOrBool = [isPromiseLike(shouldChange), isBoolean(shouldChange)].includes(true);
+      if (!isPromiseOrBool) {
+        //throwError(COMPONENT_NAME, 'beforeChange must return type `Promise<boolean>` or `boolean`');
+        throw error('beforeChange must return type `Promise<boolean>` or `boolean`');
+      }
+
+      if (isPromiseLike(shouldChange)) {
+        shouldChange
+          .then((result) => {
+            if (result) {
+              setInnerChecked(mergedChecked);
+              onChange?.(mergedChecked, event);
+              return Promise.resolve(mergedChecked)
+            }
+          })
+          .catch((e) => {
+            warning(false,`some error occurred: ${e}`);
+          });
+      } else if (shouldChange) {
+        setInnerChecked(mergedChecked);
+        onChange?.(mergedChecked, event);
+        return Promise.resolve(mergedChecked)
+      }
     }
 
     function onInternalKeyDown(e: React.KeyboardEvent<HTMLButtonElement>) {
@@ -95,9 +113,12 @@ const RcSwitch = React.forwardRef<HTMLButtonElement, SwitchProps>(
     }
 
     function onInternalClick(e: React.MouseEvent<HTMLButtonElement>) {
-      const ret = triggerChange(!innerChecked, e);
-      // [Legacy] trigger onClick with value
-      onClick?.(ret, e);
+      const rf = triggerChange(!innerChecked, e)
+      if (rf && rf.then) {
+        rf.then(ret => { 
+          onClick?.(ret, e);
+        })
+      }
     }
 
     const switchClassName = classNames(prefixCls, className, {
@@ -116,6 +137,7 @@ const RcSwitch = React.forwardRef<HTMLButtonElement, SwitchProps>(
         ref={ref}
         onKeyDown={onInternalKeyDown}
         onClick={onInternalClick}
+        style={sty}
       >
         {loadingIcon}
         <span className={`${prefixCls}-inner`}>

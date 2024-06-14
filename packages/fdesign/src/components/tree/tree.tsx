@@ -179,7 +179,7 @@ const Tree = forwardRef((props: TreeProps, ref) => {
     if (searchValue) {
       keys = searchExpandedKeys;
     } else {
-      keys = expandedKeys;
+      keys = expandedKeys || [];
     }
     return keys;
   }, [expandedKeys, searchExpandedKeys, searchValue]);

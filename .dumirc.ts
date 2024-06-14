@@ -23,7 +23,7 @@ export default defineConfig({
     name: 'fdesign',
     nav: [
       { title: '指南', link: '/guide/introduce' },
-      { title: '组件', link: '/components/tree' },
+      { title: '组件', link: '/components/switch' },
     ],
     prefersColor: { default: 'light', switch: true },
   },

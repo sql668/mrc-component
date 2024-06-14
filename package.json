@@ -23,6 +23,7 @@
   "license": "Apache-2.0",
   "dependencies": {
     "antd": "^5.18.0",
+    "antd-style": "^3.6.2",
     "npm": "^10.8.1",
     "react": "^18.2.0",
     "react-code-view": "^2.4.0",
