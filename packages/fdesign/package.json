@@ -1,6 +1,6 @@
 {
   "name": "@fdesign/component",
-  "version": "0.0.2-beta",
+  "version": "0.0.2",
   "description": "",
   "main": "dist/index.es.js",
   "module": "dist/index.es.js",
