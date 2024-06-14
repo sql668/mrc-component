@@ -39,7 +39,7 @@ export interface SwitchProps {
    * @since 5.12.0
    */
   defaultValue?: boolean;
-  beforeChange?: (checked: boolean) => Promise<void>;
+  beforeChange?: (checked: boolean) => Promise<boolean> | boolean;
   onChange?: SwitchChangeEventHandler;
   onClick?: SwitchClickEventHandler;
   checkedChildren?: React.ReactNode;
