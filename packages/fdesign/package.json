@@ -1,0 +1,76 @@
+{
+  "name": "@fdesign/component",
+  "version": "0.0.2",
+  "description": "",
+  "main": "dist/index.es.js",
+  "module": "dist/index.es.js",
+  "unpkg": "dist/index.umd.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "clean": "rimraf ./dist",
+    "build": "npm run clean && npm run build-es && npm run build-umd && npm run build-css",
+    "build-ts": "tsc -p tsconfig.build.json",
+    "build-es": "rollup --config rollup/rollup.esm.config.mjs",
+    "build-umd": "rollup --config rollup/rollup.umd.config.mjs",
+    "build-css": "sass ./src/styles/index.scss ./dist/index.css"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "Apache-2.0",
+  "files": [
+    "dist"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sql668/mrc-component/tree/main/packages/fdesign"
+  },
+  "dependencies": {
+    "@fdesign/util": "workspace:^",
+    "antd": "^5.0.0",
+    "@ant-design/icons": "^5.3.1",
+    "rc-util": "^5.41.0",
+    "classnames": "^2.3.1"
+  },
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^22.0.2",
+    "@rollup/plugin-json": "^4.1.0",
+    "@rollup/plugin-node-resolve": "^13.3.0",
+    "@rollup/plugin-replace": "^4.0.0",
+    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/react": "^13.3.0",
+    "@testing-library/user-event": "^13.5.0",
+    "@types/classnames": "^2.3.1",
+    "@types/jest": "^27.5.2",
+    "@types/lodash-es": "^4.17.6",
+    "@types/node": "^16.11.47",
+    "@types/react": "^18.0.17",
+    "@types/react-dom": "^18.0.6",
+    "@types/react-transition-group": "^4.4.5",
+    "babel-plugin-named-exports-order": "^0.0.2",
+
+    "cross-env": "^7.0.3",
+    "husky": "^8.0.1",
+    "lodash-es": "^4.17.21",
+    "prop-types": "^15.8.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-scripts": "5.0.1",
+    "rimraf": "^3.0.2",
+    "rollup": "^2.79.0",
+    "rollup-plugin-exclude-dependencies-from-bundle": "^1.1.22",
+    "rollup-plugin-sass": "^1.2.13",
+    "rollup-plugin-terser": "^7.0.2",
+    "rollup-plugin-typescript2": "^0.33.0",
+    "sass": "^1.54.4",
+    "typescript": "~5.4.5",
+    "web-vitals": "^2.1.4",
+    "webpack": "^5.72.0"
+  },
+  "peerDependencies": {
+    "react": ">=16.8.0",
+    "react-dom": ">=16.8.0"
+  }
+}

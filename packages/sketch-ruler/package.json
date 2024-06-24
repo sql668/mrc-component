@@ -1,5 +1,5 @@
 {
-  "name": "@meng-rc/sketch-ruler",
+  "name": "@fdesign/sketch-ruler",
   "version": "0.0.1",
   "description": "",
   "main": "dist/index.es.js",
@@ -20,6 +20,10 @@
   "files": [
     "dist"
   ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sql668/mrc-component/tree/main/packages/sketch-ruler"
+  },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^22.0.2",
     "@rollup/plugin-json": "^4.1.0",

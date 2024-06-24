@@ -1,6 +1,6 @@
 import React from "react";
 import { DependencyList } from "react";
-import { depsEqual } from "../utils/depsEqual";
+import depsEqual  from "../utils/depsEqual";
 
 interface Cache<Value, Condition> {
   condition?: Condition;

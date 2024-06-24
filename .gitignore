@@ -8,3 +8,5 @@ lib
 .env.local
 .env.dev
 .env.prod
+.dumi/tmp*
+docs-dist

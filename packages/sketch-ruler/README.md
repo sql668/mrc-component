@@ -1,4 +1,4 @@
-# @meng-rc/sketch-ruler
+# @fdesign/sketch-ruler
 
 标尺组件，一般用于大屏设计
 
@@ -9,14 +9,14 @@ react版本大于16.8
 ## 安装
 
 ```
-npm install @meng-rc/sketch-ruler
+npm install @fdesign/sketch-ruler
 ```
 
 ## 使用
 
 ```
-import { SketchRuler } from '@meng-rc/sketch-ruler'
-import '@meng-rc/sketch-ruler/dist/index.css'
+import { SketchRuler } from '@fdesign/sketch-ruler'
+import '@fdesign/sketch-ruler/dist/index.css'
 
 export default () => {
   return (

@@ -1,0 +1,25 @@
+.line {
+  pointer-events: auto;
+  position: absolute;
+  &:hover .del {
+    visibility: visible;
+  }
+}
+
+.action {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.value {
+  pointer-events: none;
+  transform: scale(0.83);
+}
+
+.del {
+  padding: 3px 5px;
+  cursor: pointer;
+  visibility: hidden;
+}

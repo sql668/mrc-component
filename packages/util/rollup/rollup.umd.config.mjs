@@ -6,7 +6,7 @@ const config = {
   ...basicConfig,
   output: [
     {
-      name: '@meng-rc/util',
+      name: 'FDUtil',
       file: 'dist/index.umd.js',
       format: 'umd',
       exports: 'named',

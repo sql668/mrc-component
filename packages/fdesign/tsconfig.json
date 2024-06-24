@@ -1,0 +1,36 @@
+{
+  "compilerOptions": {
+    "baseUrl": "./src/",
+    "outDir": "./dist",
+    "target": "es5",
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "noFallthroughCasesInSwitch": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "react-jsx",
+    "paths": {
+      "tslib" : ["../../node_modules/tslib/tslib.d.ts"],
+      "@fdesign/util": ["../util/src/index.tsx"],
+      "@fdesign/component": ["index.tsx"],
+    }
+  },
+  "include": [
+    "src/**/*"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}

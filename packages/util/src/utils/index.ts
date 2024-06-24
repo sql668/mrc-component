@@ -9,3 +9,5 @@ export { default as useDeepCompareEffectWithTarget } from './useDeepCompareEffec
 export { default as useEffectWithTarget } from './useEffectWithTarget';
 export { default as useIsomorphicLayoutEffectWithTarget } from './useIsomorphicLayoutEffectWithTarget';
 export { default as useLayoutEffectWithTarget } from './useLayoutEffectWithTarget';
+export * from "./is"
+export * from "./color"
